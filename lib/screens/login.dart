@@ -1,7 +1,6 @@
 import 'package:chat_app/component/reused_button.dart';
 import 'package:chat_app/screens/chat_list.dart';
 import 'package:chat_app/screens/register.dart';
-import 'package:chat_app/services/database.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

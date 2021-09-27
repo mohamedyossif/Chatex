@@ -6,7 +6,7 @@ class AuthFirebaseMethods {
 
   Future signUp(context, email, password) async {
     try {
-      UserCredential result = await firebaseAuth.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

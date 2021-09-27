@@ -2,7 +2,6 @@ import 'package:chat_app/component/reused_button.dart';
 import 'package:chat_app/screens/chat_list.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -13,7 +12,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   bool visibility = false;
   final _password1Controller = TextEditingController();

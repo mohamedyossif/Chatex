@@ -1,7 +1,6 @@
 import 'package:chat_app/services/auth_firebase.dart';
 import 'package:chat_app/services/database.dart';
 import 'package:chat_app/services/shared_preferences.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 ///variables
