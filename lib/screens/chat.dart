@@ -4,14 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-String lastMessage = '';
+String lastMessages = '';
 String lastTime = '';
 
 class Chat extends StatefulWidget {
   static const id = '/chat';
   final chatRoomId;
-  final userName;
-
+  final String? userName;
   Chat({this.chatRoomId, this.userName});
   @override
   _ChatState createState() => _ChatState();
@@ -38,28 +37,38 @@ class _ChatState extends State<Chat> {
           Expanded(
             child: TextField(
                 controller: messageController,
-                decoration:
-                kFieldTextStyle.copyWith(hintText: 'Type a message')),
+                decoration: kFieldTextStyleChat.copyWith(
+                    suffixIcon: IconButton(
+                  onPressed: () {
+                    sendMessage();
+                    messageController.clear();
+                  },
+                  icon: Icon(Icons.send_rounded),
+                ))),
           ),
-          FloatingActionButton(
-              onPressed: () {
-                sendMessage();
-                messageController.clear();
-              },
-              child: Icon(Icons.send_rounded)),
         ],
       ),
       appBar: AppBar(
-        leadingWidth: 30,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (c) => ChatList(),
+        leadingWidth: 90,
+        leading: Row(
+          children: [
+            IconButton(
+              onPressed: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (c) => ChatList(
+                  ),
+                ),
+              ),
+              icon: Icon(Icons.arrow_back_outlined),
             ),
-          ),
-          icon: Icon(Icons.arrow_back_outlined),
+            CircleAvatar(
+              child: Text(
+                widget.userName!.substring(0, 1),
+              ),
+            ),
+          ],
         ),
-        title: Text(widget.userName),
+        title: Text(widget.userName!,style: TextStyle(fontSize: 24),),
       ),
       body: messageList(),
     );
@@ -87,19 +96,21 @@ class _ChatState extends State<Chat> {
           if (!snapshots.hasData) {
             return Center(
               child: CircularProgressIndicator(
-                color: Colors.green,
+                color: Colors.blue,
               ),
             );
           }
-
+         // int x=snapshots.data!.docs.length;
+          lastMessages=snapshots.data!.docs[0].data()['massage'];
           return ListView.builder(
             reverse: true,
-           padding: EdgeInsets.only(bottom:65 ),
+            padding: EdgeInsets.only(bottom: 65),
             ///to make ListView only occupies the space it needs
             itemCount: snapshots.data!.docs.length,
             itemBuilder: (c, index) => MassageTitle(
               massage: snapshots.data!.docs[index].data()['massage'],
               isMe: snapshots.data!.docs[index].data()['sender'] == myName,
+
             ),
           );
         });
@@ -116,26 +127,33 @@ class MassageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
-      child: Container(
-        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: GestureDetector(
+        onLongPress: (){
+
+        },
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-          decoration: BoxDecoration(
-            borderRadius: isMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0))
-                : BorderRadius.only(
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-            color: isMe ? Colors.greenAccent : Colors.lightGreenAccent,
-          ),
-          child: Text(
-            massage,
-            style: TextStyle(fontSize: 20),
+          alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+            decoration: BoxDecoration(
+              borderRadius: isMe
+                  ? BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),
+                    )
+                  : BorderRadius.only(
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+              color: isMe ? Colors.blueAccent[700] : Colors.grey[300],
+            ),
+            child: Text(
+              massage,
+              style: TextStyle(
+                  fontSize: 20, color: isMe ? Colors.white : Colors.black),
+            ),
           ),
         ),
       ),

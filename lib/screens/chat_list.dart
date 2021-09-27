@@ -1,9 +1,11 @@
+import 'package:chat_app/component/reused_delete_dialog.dart';
 import 'package:chat_app/screens/chat.dart';
 import 'package:chat_app/screens/login.dart';
 import 'package:chat_app/screens/search.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,14 +13,13 @@ String? chatRoomIdLastMessage;
 
 class ChatList extends StatefulWidget {
   static const id = '/chatList';
-
   @override
   _ChatListState createState() => _ChatListState();
 }
 
 class _ChatListState extends State<ChatList> {
   Stream<QuerySnapshot<Map<String, dynamic>>>? chatStream;
-  Stream<QuerySnapshot<Map<String, dynamic>>>? lastMessages;
+  QuerySnapshot<Map<String, dynamic>>? lastMessages;
 
   @override
   void initState() {
@@ -66,7 +67,6 @@ class _ChatListState extends State<ChatList> {
       ),
     );
   }
-
   getUserName() async {
     myName = (await SharedPreferencesDatabase.getUserNameKey())!;
     setState(() {
@@ -74,7 +74,6 @@ class _ChatListState extends State<ChatList> {
       chatStream = fireStoreDatabaseMethods.getChatRooms(myName);
     });
   }
-
   Widget streamChatList() {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: chatStream,
@@ -86,13 +85,16 @@ class _ChatListState extends State<ChatList> {
                   shrinkWrap: true,
                   itemCount: snapshots.data!.docs.length,
                   itemBuilder: (c, index) {
+                    String chatRoomId= snapshots.data!.docs[index].data()['chatRoomId'];
+                  //  getLastMessage(chatRoomId);
                     return ChatTitle(
                       snapshots.data!.docs[index]
                           .data()['chatRoomId']
                           .toString()
                           .replaceAll('_', "")
                           .replaceAll(myName, ""),
-                      snapshots.data!.docs[index].data()['chatRoomId'],
+                      chatRoomId,
+
                     );
                   })
               : Container();
@@ -103,7 +105,6 @@ class _ChatListState extends State<ChatList> {
 class ChatTitle extends StatelessWidget {
   final String userName;
   final String chatRoomId;
-
   ChatTitle(this.userName, this.chatRoomId);
   @override
   Widget build(BuildContext context) {
@@ -116,7 +117,14 @@ class ChatTitle extends StatelessWidget {
                 userName.substring(0, 1),
               ),
             ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: (){
+                reusedDeleteDialog(context,chatRoomId);
+              },
+            ),
             title: Text(userName),
+            subtitle: Text('i'),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (c) {
                 chatRoomIdLastMessage = chatRoomId;

@@ -23,25 +23,40 @@ TextStyle kMessageSender=TextStyle(
 
 TextStyle kWeChatText = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 27.0,
-  color: Colors.green[900],
+  fontSize: 35.0,
+  color: Colors.blue[600],
 );
 TextStyle kChatText = TextStyle(
   fontSize: 30.0,
   fontWeight: FontWeight.bold,
   color: Colors.green[50],
 );
-InputDecoration kFieldTextStyle = InputDecoration(
+InputDecoration kFieldTextStyleChat=InputDecoration(
+  hintText: 'Type a message',
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30),
+    borderRadius: BorderRadius.circular(0.0),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.green),
-    borderRadius: BorderRadius.circular(5.0),
+    borderSide: BorderSide(color: Colors.blue),
+    borderRadius: BorderRadius.circular(0.0),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.green, width: 2),
-    borderRadius: BorderRadius.circular(5.0),
+    borderSide: BorderSide(color: Colors.blue, width: 1),
+    borderRadius: BorderRadius.circular(0.0),
+  ),
+);
+
+InputDecoration kFieldTextStyle = InputDecoration(
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(30.0),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.blue),
+    borderRadius: BorderRadius.circular(30.0),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.blue, width: 1),
+    borderRadius: BorderRadius.circular(30.0),
   ),
   hintText: 'Enter Your Email',
 );

@@ -8,7 +8,7 @@ Widget reusedButton({required nameButton,required  onPress})
     ),
     style: ButtonStyle(
         backgroundColor:
-        MaterialStateProperty.all<Color>(Colors.green),
+        MaterialStateProperty.all<Color>(Colors.blue),
         shape:
         MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(

@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.green[50],
+        scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
-          color: Colors.green,
+          color: Colors.blue,
         ),
-        accentColor: Colors.green,
+        accentColor: Colors.blue,
       ),
       initialRoute: App.id,
       routes: {

@@ -60,12 +60,18 @@ class FireStoreDatabaseMethods {
         .orderBy('time',descending: true)
         .snapshots();
   }
-
 /// to get contacts
   getChatRooms(String myName) {
     return _fireStore
         .collection('chatRoom')
         .where('users', arrayContains: myName)
         .snapshots();
+  }
+
+  ///to delete contact
+  deleteContact(String chatRoomId)
+  {
+    return _fireStore.collection('chatRoom')
+        .doc(chatRoomId).delete();
   }
 }

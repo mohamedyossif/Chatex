@@ -16,10 +16,10 @@ class Flash extends StatelessWidget {
         value =value??true;
         /// check if u loggedIn before or not
         if (value == true) {
-          Navigator.of(context).pushReplacementNamed(Login.id);
+          Navigator.pushReplacementNamed(context,Login.id);
         }
         else {
-          Navigator.of(context).pushReplacementNamed(ChatList.id);
+          Navigator.pushReplacementNamed(context,ChatList.id);
         }
       });
     });
@@ -41,10 +41,11 @@ class Flash extends StatelessWidget {
                 width: 90,
                 fit: BoxFit.fill,
               ),
+               SizedBox(width: 10,),
               AnimatedTextKit(
                 animatedTexts: [
                   WavyAnimatedText(
-                    'WeChat',
+                    'Chatex',
                     textStyle: kWeChatText,
                   ),
                 ],
