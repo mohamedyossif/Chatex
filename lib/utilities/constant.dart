@@ -8,6 +8,8 @@ AuthFirebaseMethods authFirebaseMethods = AuthFirebaseMethods();
 FireStoreDatabaseMethods fireStoreDatabaseMethods = FireStoreDatabaseMethods();
 SharedPreferencesDatabase sharedPreferencesDatabase =
     SharedPreferencesDatabase();
+bool isCheck = true;
+String ChatRoomID2 = '';
  String myName='';
 ///styles
 TextStyle kResultSearch = TextStyle(

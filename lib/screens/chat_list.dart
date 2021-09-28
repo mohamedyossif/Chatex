@@ -1,5 +1,6 @@
 import 'package:chat_app/component/reused_delete_dialog.dart';
-import 'package:chat_app/screens/chat.dart';
+import 'package:chat_app/component/reused_icon_button_appbar.dart';
+import '../component/chat_title.dart';
 import 'package:chat_app/screens/login.dart';
 import 'package:chat_app/screens/search.dart';
 import 'package:chat_app/services/shared_preferences.dart';
@@ -8,8 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-bool isCheck = true;
-String ChatRoomID2 = '';
+
 
 class ChatList extends StatefulWidget {
   static const id = '/chatList';
@@ -19,17 +19,13 @@ class ChatList extends StatefulWidget {
 
 class _ChatListState extends State<ChatList> {
   Stream<QuerySnapshot<Map<String, dynamic>>>? chatStream;
-  QuerySnapshot<Map<String, dynamic>>? lastMessages;
-
   @override
   void initState() {
     super.initState();
     getUserName();
   }
-
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: MediaQuery.of(context).size * 0.11,
@@ -44,14 +40,13 @@ class _ChatListState extends State<ChatList> {
                       child: Text("Chats", style: kChatText)),
                 )
               : Center(
-                child: getIconButton(Icons.delete, () {
-                      reusedDeleteDialog(context, ChatRoomID2);
-                     setState(() {
-                       isCheck = true;
-                     });
-
-                  },7.0),
-              ),
+                  child: getIconButton(Icons.delete, () {
+                    reusedDeleteDialog(context, ChatRoomID2);
+                    setState(() {
+                      isCheck = true;
+                    });
+                  }, 7.0),
+                ),
           actions: [
             isCheck
                 ? Transform.translate(
@@ -88,21 +83,6 @@ class _ChatListState extends State<ChatList> {
     );
   }
 
-  /// reused iconButton
-  Widget getIconButton(IconData iconData, function, double width) {
-    return Transform.translate(
-      offset: Offset(width, 7),
-      child: IconButton(
-        icon: Icon(
-          iconData,
-          size: 37,
-        ),
-        
-        onPressed: function,
-      ),
-    );
-  }
-
   getUserName() async {
     myName = (await SharedPreferencesDatabase.getUserNameKey())!;
     setState(() {
@@ -110,7 +90,6 @@ class _ChatListState extends State<ChatList> {
       chatStream = fireStoreDatabaseMethods.getChatRooms(myName);
     });
   }
-
   Widget streamChatList() {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: chatStream,
@@ -118,7 +97,6 @@ class _ChatListState extends State<ChatList> {
           return snapshots.hasData
               ? ListView.builder(
                   reverse: true,
-
                   ///to make ListView only occupies the space it needs
                   shrinkWrap: true,
                   itemCount: snapshots.data!.docs.length,
@@ -140,57 +118,4 @@ class _ChatListState extends State<ChatList> {
   }
 }
 
-class ChatTitle extends StatefulWidget {
-  final String userName;
-  final String chatRoomId;
-  ChatTitle(this.userName, this.chatRoomId);
-  @override
-  _ChatTitleState createState() => _ChatTitleState();
-}
 
-class _ChatTitleState extends State<ChatTitle> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child: GestureDetector(
-            onLongPress: () {
-              setState(() {
-                ChatRoomID2 = widget.chatRoomId;
-                isCheck = false;
-              });
-            },
-            child: ListTile(
-              leading: CircleAvatar(
-                child: Text(
-                  widget.userName.substring(0, 1),
-                ),
-              ),
-              // trailing: IconButton(
-              //   icon: Icon(Icons.delete),
-              //   onPressed: () {
-              //     reusedDeleteDialog(context,  widget.chatRoomId);
-              //   },
-              // ),
-              title: Text(widget.userName),
-              subtitle: Text('i'),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (c) {
-                  return Chat(
-                    chatRoomId: widget.chatRoomId,
-                    userName: widget.userName,
-                  );
-                }),
-              ),
-            ),
-          ),
-        ),
-        Divider(
-          height: 1,
-          thickness: 2,
-        ),
-      ],
-    );
-  }
-}

@@ -55,8 +55,7 @@ class _ChatState extends State<Chat> {
             IconButton(
               onPressed: () => Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (c) => ChatList(
-                  ),
+                  builder: (c) => ChatList(),
                 ),
               ),
               icon: Icon(Icons.arrow_back_outlined),
@@ -68,7 +67,10 @@ class _ChatState extends State<Chat> {
             ),
           ],
         ),
-        title: Text(widget.userName!,style: TextStyle(fontSize: 24),),
+        title: Text(
+          widget.userName!,
+          style: TextStyle(fontSize: 24),
+        ),
       ),
       body: messageList(),
     );
@@ -80,7 +82,7 @@ class _ChatState extends State<Chat> {
   void sendMessage() {
     if (messageController.text.isNotEmpty) {
       Map<String, dynamic> messageMap = {
-        'massage': messageController.text,
+        'message': messageController.text,
         'sender': myName,
         'time': DateTime.now().toString(),
       };
@@ -100,17 +102,13 @@ class _ChatState extends State<Chat> {
               ),
             );
           }
-         // int x=snapshots.data!.docs.length;
-          lastMessages=snapshots.data!.docs[0].data()['massage'];
           return ListView.builder(
             reverse: true,
             padding: EdgeInsets.only(bottom: 65),
-            ///to make ListView only occupies the space it needs
             itemCount: snapshots.data!.docs.length,
             itemBuilder: (c, index) => MassageTitle(
-              massage: snapshots.data!.docs[index].data()['massage'],
+              message: snapshots.data!.docs[index].data()['message'],
               isMe: snapshots.data!.docs[index].data()['sender'] == myName,
-
             ),
           );
         });
@@ -118,42 +116,37 @@ class _ChatState extends State<Chat> {
 }
 
 class MassageTitle extends StatelessWidget {
-  final massage;
+  final message;
 
   /// to determinate users
   final isMe;
-  MassageTitle({required this.massage, required this.isMe});
+  MassageTitle({required this.message, required this.isMe});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
-      child: GestureDetector(
-        onLongPress: (){
-
-        },
+      child: Container(
+        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
         child: Container(
-          alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-            decoration: BoxDecoration(
-              borderRadius: isMe
-                  ? BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0),
-                    )
-                  : BorderRadius.only(
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-              color: isMe ? Colors.blueAccent[700] : Colors.grey[300],
-            ),
-            child: Text(
-              massage,
-              style: TextStyle(
-                  fontSize: 20, color: isMe ? Colors.white : Colors.black),
-            ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+          decoration: BoxDecoration(
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  )
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
+            color: isMe ? Colors.blueAccent[700] : Colors.grey[300],
+          ),
+          child: Text(
+            message,
+            style: TextStyle(
+                fontSize: 20, color: isMe ? Colors.white : Colors.black),
           ),
         ),
       ),
