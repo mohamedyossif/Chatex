@@ -1,15 +1,15 @@
 import 'package:chat_app/component/reused_delete_dialog.dart';
 import 'package:chat_app/component/reused_icon_button_appbar.dart';
+
+import 'package:chat_app/screens/drawer.dart';
 import '../component/chat_title.dart';
-import 'package:chat_app/screens/login.dart';
+
 import 'package:chat_app/screens/search.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
 
 class ChatList extends StatefulWidget {
   static const id = '/chatList';
@@ -24,14 +24,16 @@ class _ChatListState extends State<ChatList> {
     super.initState();
     getUserName();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEdgeDragWidth: 2,
+      drawer: buildDrawer(context),
       appBar: PreferredSize(
-        preferredSize: MediaQuery.of(context).size * 0.11,
+        preferredSize: MediaQuery.of(context).size * 0.10,
         child: AppBar(
-          leadingWidth: 0,
-          leading: Container(),
+          leadingWidth: 20,
           title: isCheck
               ? Transform.translate(
                   offset: Offset(0, 7),
@@ -51,18 +53,19 @@ class _ChatListState extends State<ChatList> {
             isCheck
                 ? Transform.translate(
                     offset: Offset(0, 7),
-                    child: IconButton(
+                    child:
+                        Container() /* IconButton(
                       onPressed: () {
-                        authFirebaseMethods.signOut().then((value) {
+                        /*  authFirebaseMethods.signOut().then((value) {
                           SharedPreferencesDatabase.saveUserLoggedInKey(true);
                           Navigator.pushReplacementNamed(context, Login.id);
-                        });
+                        }); */
                       },
                       icon: Icon(
                         Icons.logout,
                       ),
-                    ),
-                  )
+                    ), */
+                    )
                 : getIconButton(Icons.close, () {
                     setState(() {
                       isCheck = true;
@@ -71,6 +74,7 @@ class _ChatListState extends State<ChatList> {
           ],
         ),
       ),
+
       body: SafeArea(
         child: streamChatList(),
       ),
@@ -85,44 +89,45 @@ class _ChatListState extends State<ChatList> {
 
   getUserName() async {
     myName = (await SharedPreferencesDatabase.getUserNameKey())!;
+
     setState(() {
       /// to get contacts
       chatStream = fireStoreDatabaseMethods.getChatRooms(myName);
     });
   }
+
   Widget streamChatList() {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: chatStream,
         builder: (context, snapshots) {
           return snapshots.hasData
               ? GestureDetector(
-            onLongPress: (){
-              setState(() {
-                isCheck = false;
-              });
-            },
-                child: ListView.builder(
-                    reverse: true,
-                    ///to make ListView only occupies the space it needs
-                    shrinkWrap: true,
-                    itemCount: snapshots.data!.docs.length,
-                    itemBuilder: (c, index) {
-                      String chatRoomId =
-                          snapshots.data!.docs[index].data()['chatRoomId'];
-                      chatRoomID2=chatRoomId;
-                      return ChatTitle(
-                        snapshots.data!.docs[index]
-                            .data()['chatRoomId']
-                            .toString()
-                            .replaceAll('_', "")
-                            .replaceAll(myName, ""),
-                        chatRoomId,
-                      );
-                    }),
-              )
+                  onLongPress: () {
+                    setState(() {
+                      isCheck = false;
+                    });
+                  },
+                  child: ListView.builder(
+                      reverse: true,
+
+                      ///to make ListView only occupies the space it needs
+                      shrinkWrap: true,
+                      itemCount: snapshots.data!.docs.length,
+                      itemBuilder: (c, index) {
+                        String chatRoomId =
+                            snapshots.data!.docs[index].data()['chatRoomId'];
+                        chatRoomID2 = chatRoomId;
+                        return ChatTitle(
+                          snapshots.data!.docs[index]
+                              .data()['chatRoomId']
+                              .toString()
+                              .replaceAll('_', "")
+                              .replaceAll(myName, ""),
+                          chatRoomId,
+                        );
+                      }),
+                )
               : Container();
         });
   }
 }
-
-
