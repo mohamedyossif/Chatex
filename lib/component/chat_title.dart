@@ -31,40 +31,32 @@ class _ChatTitleState extends State<ChatTitle> {
           return Column(
             children: [
               Container(
-                child: GestureDetector(
-                  onLongPress: () {
-                    setState(() {
-                      ChatRoomID2 = widget.chatRoomId;
-                      isCheck = false;
-                    });
-                  },
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Text(
-                        widget.userName.substring(0, 1),
-                      ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Text(
+                      widget.userName.substring(0, 1),
                     ),
-                    title: Text(widget.userName),
+                  ),
+                  title: Text(widget.userName),
 
-                    /// check if there`s data
-                    trailing: snapshots.data!.docs.isEmpty
-                        ? Text("")
-                        : Text(snapshots.data!.docs[0]
-                            .data()['time']
-                            .toString()
-                            .substring(11, 16)),
+                  /// check if there`s data
+                  trailing: snapshots.data!.docs.isEmpty
+                      ? Text("")
+                      : Text(snapshots.data!.docs[0]
+                          .data()['time']
+                          .toString()
+                          .substring(11, 16)),
 
-                    subtitle: snapshots.data!.docs.isEmpty
-                        ? Text("")
-                        : Text(snapshots.data!.docs[0].data()['message']),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (c) {
-                        return Chat(
-                          chatRoomId: widget.chatRoomId,
-                          userName: widget.userName,
-                        );
-                      }),
-                    ),
+                  subtitle: snapshots.data!.docs.isEmpty
+                      ? Text("")
+                      : Text(snapshots.data!.docs[0].data()['message']),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (c) {
+                      return Chat(
+                        chatRoomId: widget.chatRoomId,
+                        userName: widget.userName,
+                      );
+                    }),
                   ),
                 ),
               ),

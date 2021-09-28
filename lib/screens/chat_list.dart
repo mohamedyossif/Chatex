@@ -41,7 +41,7 @@ class _ChatListState extends State<ChatList> {
                 )
               : Center(
                   child: getIconButton(Icons.delete, () {
-                    reusedDeleteDialog(context, ChatRoomID2);
+                    reusedDeleteDialog(context, chatRoomID2);
                     setState(() {
                       isCheck = true;
                     });
@@ -95,24 +95,31 @@ class _ChatListState extends State<ChatList> {
         stream: chatStream,
         builder: (context, snapshots) {
           return snapshots.hasData
-              ? ListView.builder(
-                  reverse: true,
-                  ///to make ListView only occupies the space it needs
-                  shrinkWrap: true,
-                  itemCount: snapshots.data!.docs.length,
-                  itemBuilder: (c, index) {
-                    String chatRoomId =
-                        snapshots.data!.docs[index].data()['chatRoomId'];
-                    //  getLastMessage(chatRoomId);
-                    return ChatTitle(
-                      snapshots.data!.docs[index]
-                          .data()['chatRoomId']
-                          .toString()
-                          .replaceAll('_', "")
-                          .replaceAll(myName, ""),
-                      chatRoomId,
-                    );
-                  })
+              ? GestureDetector(
+            onLongPress: (){
+              setState(() {
+                isCheck = false;
+              });
+            },
+                child: ListView.builder(
+                    reverse: true,
+                    ///to make ListView only occupies the space it needs
+                    shrinkWrap: true,
+                    itemCount: snapshots.data!.docs.length,
+                    itemBuilder: (c, index) {
+                      String chatRoomId =
+                          snapshots.data!.docs[index].data()['chatRoomId'];
+                      chatRoomID2=chatRoomId;
+                      return ChatTitle(
+                        snapshots.data!.docs[index]
+                            .data()['chatRoomId']
+                            .toString()
+                            .replaceAll('_', "")
+                            .replaceAll(myName, ""),
+                        chatRoomId,
+                      );
+                    }),
+              )
               : Container();
         });
   }

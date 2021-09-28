@@ -9,7 +9,7 @@ FireStoreDatabaseMethods fireStoreDatabaseMethods = FireStoreDatabaseMethods();
 SharedPreferencesDatabase sharedPreferencesDatabase =
     SharedPreferencesDatabase();
 bool isCheck = true;
-String ChatRoomID2 = '';
+String chatRoomID2 = '';
  String myName='';
 ///styles
 TextStyle kResultSearch = TextStyle(
