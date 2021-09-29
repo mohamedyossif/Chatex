@@ -13,6 +13,7 @@ class _SearchState extends State<Search> {
   ///variables
   final _searchController = TextEditingController();
   List<QueryDocumentSnapshot<Map<String, dynamic>>> _listSnapShots = [];
+
   ///build
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _SearchState extends State<Search> {
           child: TextFormField(
             controller: _searchController,
             style: TextStyle(color: Colors.white),
-            decoration: kFieldTextStyle.copyWith(
+            decoration: kFieldTextStyle(context).copyWith(
               hintText: 'Search...',
               hintStyle: TextStyle(color: Colors.green[50], fontSize: 20.0),
               contentPadding: EdgeInsets.only(top: 3.0, left: 8.0),
@@ -68,6 +69,7 @@ class _SearchState extends State<Search> {
       });
     });
   }
+
   ///  to get name and email who u search him .
   Widget showDataSearch(int index) {
     String userName = _listSnapShots[index].data()['name'];
@@ -81,7 +83,7 @@ class _SearchState extends State<Search> {
     );
   }
 
- /// to start conversation and store data in firebase
+  /// to start conversation and store data in firebase
   void createChatRoomAndStartConversation(String userName) {
     String chatRoomId = getChatRoomId(userName, myName);
     List<String> users = [userName, myName];
@@ -89,6 +91,7 @@ class _SearchState extends State<Search> {
       'users': users,
       'chatRoomId': chatRoomId,
     };
+
     /// to open chat
     fireStoreDatabaseMethods.createChatRoom(chatRoomId, chatRoomMap);
     Navigator.of(context).pushReplacement(

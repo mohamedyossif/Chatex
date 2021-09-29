@@ -59,9 +59,11 @@ class _LoginState extends State<Login> {
                       }
                     },
                     keyboardType: TextInputType.emailAddress,
-                    decoration: kFieldTextStyle.copyWith(
+                    decoration: kFieldTextStyle(context).copyWith(
                         hintText: 'Enter Your Email',
-                        prefixIcon: Icon(Icons.person)),
+                        prefixIcon: Icon(
+                          Icons.person,
+                        )),
                   ),
                   SizedBox(
                     height: 20.0,
@@ -76,7 +78,7 @@ class _LoginState extends State<Login> {
                         value!.isEmpty ? 'Required Password' : null,
                     keyboardType: TextInputType.text,
                     obscureText: !visibility,
-                    decoration: kFieldTextStyle.copyWith(
+                    decoration: kFieldTextStyle(context).copyWith(
                       suffixIcon: IconButton(
                         icon: visibility
                             ? Icon(Icons.visibility)
@@ -88,7 +90,9 @@ class _LoginState extends State<Login> {
                         },
                       ),
                       hintText: 'Enter Your Password',
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -143,7 +147,7 @@ class _LoginState extends State<Login> {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                              color: Colors.blue,
+                              color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                               decorationThickness: 2.0),

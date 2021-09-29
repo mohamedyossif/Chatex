@@ -21,12 +21,13 @@ Widget buildDrawer(BuildContext context) {
             height: 20,
           ),
           CircleAvatar(
+            backgroundColor: Theme.of(context).accentColor,
             radius: 40,
             child: myName == ''
                 ? Text(' ')
                 : Text(
                     myName.substring(0, 1),
-                    style: TextStyle(fontSize: 50),
+                    style: TextStyle(fontSize: 50, color: Colors.white),
                   ),
           ),
           SizedBox(
@@ -35,6 +36,7 @@ Widget buildDrawer(BuildContext context) {
           ListTile(
             leading: Icon(
               Icons.person,
+              color: Theme.of(context).accentColor.withOpacity(0.85),
               size: 35,
             ),
             title: Text(
@@ -48,6 +50,7 @@ Widget buildDrawer(BuildContext context) {
           ListTile(
             leading: Icon(
               Icons.email,
+              color: Theme.of(context).accentColor.withOpacity(0.85),
               size: 35,
             ),
             title: Text(
@@ -61,6 +64,7 @@ Widget buildDrawer(BuildContext context) {
           ListTile(
             leading: Icon(
               Icons.logout,
+              color: Theme.of(context).accentColor.withOpacity(0.85),
               size: 35,
             ),
             title: Text(

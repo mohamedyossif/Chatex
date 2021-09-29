@@ -33,8 +33,10 @@ class _ChatTitleState extends State<ChatTitle> {
               Container(
                 child: ListTile(
                   leading: CircleAvatar(
+                    backgroundColor: Theme.of(context).accentColor,
                     child: Text(
                       widget.userName.substring(0, 1),
+                      style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
                   title: Text(widget.userName),
