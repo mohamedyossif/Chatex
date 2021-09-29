@@ -29,6 +29,13 @@ class FireStoreDatabaseMethods {
         .where('email', isEqualTo: userEmail)
         .get();
   }
+  /// check email is unique
+  checkValidUserName(String userName) async {
+    return await _fireStore
+        .collection('users')
+        .where('name', isEqualTo: userName)
+        .get().then((value) => value.docs);
+  }
  /// to open chat
   createChatRoom(String chatRoomId, chatRoomMap) {
     _fireStore

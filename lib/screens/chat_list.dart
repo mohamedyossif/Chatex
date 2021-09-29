@@ -63,7 +63,7 @@ class _ChatListState extends State<ChatList> {
 
       /// to go search Screen
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
+        child: Icon(Icons.search,color: Colors.white,),
         onPressed: () => Navigator.pushNamed(context, Search.id),
       ),
     );

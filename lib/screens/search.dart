@@ -76,7 +76,8 @@ class _SearchState extends State<Search> {
     return ListTile(
       title: Text(userName, style: kResultSearch),
       leading: CircleAvatar(
-        child: Icon(Icons.person),
+        backgroundColor: Theme.of(context).accentColor,
+        child: Icon(Icons.person,color: Colors.white,),
       ),
       subtitle: Text(_listSnapShots[index].data()['email']),
       onTap: () => createChatRoomAndStartConversation(userName),
