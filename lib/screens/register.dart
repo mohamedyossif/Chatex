@@ -72,8 +72,11 @@ class _RegisterState extends State<Register> {
                           controller: _userNameController,
 
                           ///check name is not empty
-                          validator: (value) =>
-                              value!.isEmpty ? 'Required UserName' : null,
+                          validator: (value){
+                             if( value!.isEmpty){return 'Required UserName';}
+                             else  if (value.length < 4)
+                              return 'userName must be more 4 letters';
+                          },
                           decoration: kFieldTextStyle(context).copyWith(
                               hintText: 'Enter Your UserName',
                               prefixIcon: Icon(Icons.person)),
@@ -88,7 +91,6 @@ class _RegisterState extends State<Register> {
                             /// check email is not empty
                             if (value!.isEmpty) {
                               return 'Required Email';
-
                               ///cheek form email is correct
                             } else if (!RegExp(
                                     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
