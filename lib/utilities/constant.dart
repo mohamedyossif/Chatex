@@ -12,7 +12,7 @@ SharedPreferencesDatabase sharedPreferencesDatabase =
 bool isCheck = true;
 String chatRoomID2 = '';
 String myName = '';
-String email = FirebaseAuth.instance.currentUser!.email!;
+String email = '';
 
 ///styles
 TextStyle kResultSearch = TextStyle(

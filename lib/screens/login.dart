@@ -5,6 +5,7 @@ import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   static const id = '/login';
@@ -122,10 +123,9 @@ class _LoginState extends State<Login> {
                                     _listSnapShots[0].data()['name']);
                                 SharedPreferencesDatabase.saveUserEmailKey(
                                     _listSnapShots[0].data()['email']);
-                              });
-                              SharedPreferencesDatabase.saveUserLoggedInKey(
-                                  false);
 
+                              });
+                              SharedPreferencesDatabase.saveUserLoggedInKey(false);
                               Navigator.of(context)
                                   .pushReplacementNamed(ChatList.id);
                             }

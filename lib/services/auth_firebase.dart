@@ -35,6 +35,7 @@ class AuthFirebaseMethods {
 
   Future signOut() async {
     try {
+
       return await firebaseAuth.signOut();
     } catch (e) {
       print(e);

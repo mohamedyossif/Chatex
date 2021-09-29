@@ -27,6 +27,7 @@ class _ChatListState extends State<ChatList> {
 
   @override
   Widget build(BuildContext context) {
+    getUserName();
     return Scaffold(
       drawer: buildDrawer(context),
       appBar: AppBar(
@@ -73,8 +74,8 @@ class _ChatListState extends State<ChatList> {
   }
 
   getUserName() async {
-    myName = (await SharedPreferencesDatabase.getUserNameKey())!;
-
+    myName=(await SharedPreferencesDatabase.getUserNameKey())!;
+    email=(await SharedPreferencesDatabase.getUserEmailKey())!;
     setState(() {
       /// to get contacts
       chatStream = fireStoreDatabaseMethods.getChatRooms(myName);

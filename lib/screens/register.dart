@@ -192,8 +192,6 @@ class _RegisterState extends State<Register> {
                               /// check userName and email are unique
                               await  checkUserName(_userNameController.text);
                               await checkUserEmail(_emailController.text);
-                              print(resultUserEmail);
-                              print(resultUserName);
                               if(resultUserEmail!=0&&resultUserName!=0)
                               {
                                 buildSnackBar(context,'UserName and Email are exist ');
@@ -210,7 +208,6 @@ class _RegisterState extends State<Register> {
                                   'name': _userNameController.text,
                                   "email": _emailController.text,
                                 };
-
                                 /// save my data to Shared Preferences
                                 SharedPreferencesDatabase.saveUserEmailKey(
                                     _emailController.text);
@@ -220,9 +217,7 @@ class _RegisterState extends State<Register> {
                                     .signUp(context, _emailController.text,
                                         _password1Controller.text)
                                     .then((value) {
-                                  SharedPreferencesDatabase.saveUserLoggedInKey(
-                                      false);
-
+                                  SharedPreferencesDatabase.saveUserLoggedInKey(false);
                                   fireStoreDatabaseMethods
                                       .upLoadProfile(userInfo);
                                   Navigator.of(context)

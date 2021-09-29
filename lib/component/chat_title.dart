@@ -40,7 +40,6 @@ class _ChatTitleState extends State<ChatTitle> {
                     ),
                   ),
                   title: Text(widget.userName),
-
                   /// check if there`s data
                   trailing: snapshots.data!.docs.isEmpty
                       ? Text("")

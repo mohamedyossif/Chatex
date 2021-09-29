@@ -2,11 +2,8 @@ import 'package:chat_app/component/theme/theme.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:flutter/material.dart';
-
 import 'login.dart';
-
 Widget buildDrawer(BuildContext context) {
-  SharedPreferencesDatabase.getUserEmailKey().then((value) => email=value!);
   return Drawer(
     child: SafeArea(
       child: Column(
