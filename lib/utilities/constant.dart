@@ -32,32 +32,32 @@ TextStyle kChatText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.green[50],
 );
-InputDecoration kFieldTextStyleChat = InputDecoration(
-  hintText: 'Type a message',
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(0.0),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blue),
-    borderRadius: BorderRadius.circular(0.0),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blue, width: 1),
-    borderRadius: BorderRadius.circular(0.0),
-  ),
-);
+InputDecoration kFieldTextStyleChat(context) => InputDecoration(
+      hintText: 'Type a message',
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(0.0),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).accentColor),
+        borderRadius: BorderRadius.circular(0.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).accentColor, width: 1),
+        borderRadius: BorderRadius.circular(0.0),
+      ),
+    );
 
-InputDecoration kFieldTextStyle = InputDecoration(
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30.0),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blue),
-    borderRadius: BorderRadius.circular(30.0),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blue, width: 1),
-    borderRadius: BorderRadius.circular(30.0),
-  ),
-  hintText: 'Enter Your Email',
-);
+InputDecoration kFieldTextStyle(context) => InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).accentColor),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).accentColor, width: 1),
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      hintText: 'Enter Your Email',
+    );

@@ -37,7 +37,7 @@ class _ChatState extends State<Chat> {
           Expanded(
             child: TextField(
                 controller: messageController,
-                decoration: kFieldTextStyleChat.copyWith(
+                decoration: kFieldTextStyleChat(context).copyWith(
                     suffixIcon: IconButton(
                   onPressed: () {
                     sendMessage();
@@ -61,8 +61,10 @@ class _ChatState extends State<Chat> {
               icon: Icon(Icons.arrow_back_outlined),
             ),
             CircleAvatar(
+              backgroundColor: Theme.of(context).buttonColor,
               child: Text(
                 widget.userName!.substring(0, 1),
+                style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),
           ],

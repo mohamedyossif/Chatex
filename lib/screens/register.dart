@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
                           ///check name is not empty
                           validator: (value) =>
                               value!.isEmpty ? 'Required UserName' : null,
-                          decoration: kFieldTextStyle.copyWith(
+                          decoration: kFieldTextStyle(context).copyWith(
                               hintText: 'Enter Your UserName',
                               prefixIcon: Icon(Icons.person)),
                         ),
@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                           },
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: kFieldTextStyle.copyWith(
+                          decoration: kFieldTextStyle(context).copyWith(
                               hintText: 'Enter Your Email',
                               prefixIcon: Icon(Icons.email)),
                         ),
@@ -105,7 +105,7 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                           obscureText: !visibility,
-                          decoration: kFieldTextStyle.copyWith(
+                          decoration: kFieldTextStyle(context).copyWith(
                               suffixIcon: IconButton(
                                 icon: visibility
                                     ? Icon(Icons.visibility)
@@ -149,7 +149,7 @@ class _RegisterState extends State<Register> {
                             }
                           },
                           obscureText: !visibility,
-                          decoration: kFieldTextStyle.copyWith(
+                          decoration: kFieldTextStyle(context).copyWith(
                             suffix: _icon,
                             suffixIcon: IconButton(
                                 onPressed: () {
@@ -179,20 +179,23 @@ class _RegisterState extends State<Register> {
                                   'name': _userNameController.text,
                                   "email": _emailController.text,
                                 };
+
                                 /// save my data to Shared Preferences
-                                SharedPreferencesDatabase.saveUserEmailKey(_emailController.text);
-                                SharedPreferencesDatabase.saveUserNameKey(_userNameController.text);
+                                SharedPreferencesDatabase.saveUserEmailKey(
+                                    _emailController.text);
+                                SharedPreferencesDatabase.saveUserNameKey(
+                                    _userNameController.text);
                                 authFirebaseMethods
                                     .signUp(context, _emailController.text,
                                         _password1Controller.text)
                                     .then((value) {
-                                  SharedPreferencesDatabase.saveUserLoggedInKey(false);
+                                  SharedPreferencesDatabase.saveUserLoggedInKey(
+                                      false);
 
                                   fireStoreDatabaseMethods
                                       .upLoadProfile(userInfo);
                                   Navigator.of(context)
                                       .pushReplacementNamed(ChatList.id);
-
                                 });
                               }
                             },

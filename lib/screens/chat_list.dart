@@ -30,49 +30,31 @@ class _ChatListState extends State<ChatList> {
     return Scaffold(
       drawerEdgeDragWidth: 2,
       drawer: buildDrawer(context),
-      appBar: PreferredSize(
-        preferredSize: MediaQuery.of(context).size * 0.10,
-        child: AppBar(
-          leadingWidth: 20,
-          title: isCheck
-              ? Transform.translate(
-                  offset: Offset(0, 7),
-                  child: Container(
-                      margin: EdgeInsets.only(left: 10.0, top: 10.0),
-                      child: Text("Chats", style: kChatText)),
-                )
-              : Center(
-                  child: getIconButton(Icons.delete, () {
-                    reusedDeleteDialog(context, chatRoomID2);
-                    setState(() {
-                      isCheck = true;
-                    });
-                  }, 7.0),
+      appBar: AppBar(
+        leadingWidth: 20,
+        title: isCheck
+            ? Container(
+                margin: EdgeInsets.only(
+                  left: 10.0,
                 ),
-          actions: [
-            isCheck
-                ? Transform.translate(
-                    offset: Offset(0, 7),
-                    child:
-                        Container() /* IconButton(
-                      onPressed: () {
-                        /*  authFirebaseMethods.signOut().then((value) {
-                          SharedPreferencesDatabase.saveUserLoggedInKey(true);
-                          Navigator.pushReplacementNamed(context, Login.id);
-                        }); */
-                      },
-                      icon: Icon(
-                        Icons.logout,
-                      ),
-                    ), */
-                    )
-                : getIconButton(Icons.close, () {
-                    setState(() {
-                      isCheck = true;
-                    });
-                  }, 0.0)
-          ],
-        ),
+                child: Text("Chats", style: kChatText))
+            : Center(
+                child: getIconButton(Icons.delete, () {
+                  reusedDeleteDialog(context, chatRoomID2);
+                  setState(() {
+                    isCheck = true;
+                  });
+                }, 7.0),
+              ),
+        actions: [
+          isCheck
+              ? Container()
+              : getIconButton(Icons.close, () {
+                  setState(() {
+                    isCheck = true;
+                  });
+                }, 0.0)
+        ],
       ),
 
       body: SafeArea(
