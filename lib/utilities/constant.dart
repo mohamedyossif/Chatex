@@ -28,9 +28,9 @@ TextStyle kWeChatText = TextStyle(
   color: Colors.blue[600],
 );
 TextStyle kChatText = TextStyle(
-  fontSize: 30.0,
+  fontSize: 20,
   fontWeight: FontWeight.bold,
-  color: Colors.green[50],
+  color: Colors.white,
 );
 InputDecoration kFieldTextStyleChat(context) => InputDecoration(
       hintText: 'Type a message',

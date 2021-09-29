@@ -28,7 +28,6 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawerEdgeDragWidth: 2,
       drawer: buildDrawer(context),
       appBar: AppBar(
         leadingWidth: 20,
@@ -63,7 +62,11 @@ class _ChatListState extends State<ChatList> {
 
       /// to go search Screen
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search,color: Colors.white,),
+        child: Icon(
+          Icons.search,
+          color: Colors.white,
+          size: 30,
+        ),
         onPressed: () => Navigator.pushNamed(context, Search.id),
       ),
     );

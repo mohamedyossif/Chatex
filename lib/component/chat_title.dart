@@ -52,14 +52,19 @@ class _ChatTitleState extends State<ChatTitle> {
                   subtitle: snapshots.data!.docs.isEmpty
                       ? Text("")
                       : Text(snapshots.data!.docs[0].data()['message']),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (c) {
-                      return Chat(
-                        chatRoomId: widget.chatRoomId,
-                        userName: widget.userName,
-                      );
-                    }),
-                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (c) {
+                        return Chat(
+                          chatRoomId: widget.chatRoomId,
+                          userName: widget.userName,
+                        );
+                      }),
+                    );
+                    setState(() {
+                      isCheck=true;
+                    });
+                  }
                 ),
               ),
               Divider(

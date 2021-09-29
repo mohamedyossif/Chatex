@@ -6,7 +6,6 @@ import 'package:chat_app/screens/flash.dart';
 import 'package:chat_app/screens/login.dart';
 import 'package:chat_app/screens/register.dart';
 import 'package:chat_app/screens/search.dart';
-import 'package:chat_app/utilities/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
