@@ -1,9 +1,12 @@
 import 'package:chat_app/component/reused_button.dart';
+import 'package:chat_app/component/reused_snackBar.dart';
 import 'package:chat_app/screens/chat_list.dart';
 import 'package:chat_app/services/shared_preferences.dart';
 import 'package:chat_app/utilities/constant.dart';
 import 'package:flutter/material.dart';
 
+int resultUserName = 0;
+int resultUserEmail=0;
 class Register extends StatefulWidget {
   static const id = '/register';
   @override
@@ -18,6 +21,18 @@ class _RegisterState extends State<Register> {
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
   Icon? _icon;
+  ///methods
+   checkUserName(String name) async {
+      await fireStoreDatabaseMethods.checkValidUserName(name).then((value) {
+
+         resultUserName = value.length;
+      });
+    }
+    checkUserEmail(String email) async {
+      await fireStoreDatabaseMethods.getDataByAllString(email).then((value) {
+          resultUserEmail = value.docs.length;
+      });
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,7 +189,23 @@ class _RegisterState extends State<Register> {
                           child: reusedButton(
                             nameButton: 'Sign Up',
                             onPress: () async {
-                              if (_formKey.currentState!.validate()) {
+                              /// check userName and email are unique
+                              await  checkUserName(_userNameController.text);
+                              await checkUserEmail(_emailController.text);
+                              print(resultUserEmail);
+                              print(resultUserName);
+                              if(resultUserEmail!=0&&resultUserName!=0)
+                              {
+                                buildSnackBar(context,'UserName and Email are exist ');
+                              }
+                              else if(resultUserName!=0) {
+                                buildSnackBar(context,'UserName is exist ');
+                              }
+                              else if(resultUserEmail!=0)
+                              {
+                                buildSnackBar(context,'Email is exist ');
+                              }
+                              else if (_formKey.currentState!.validate()) {
                                 Map<String, dynamic> userInfo = {
                                   'name': _userNameController.text,
                                   "email": _emailController.text,

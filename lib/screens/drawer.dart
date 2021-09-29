@@ -6,17 +6,11 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 
 Widget buildDrawer(BuildContext context) {
+  SharedPreferencesDatabase.getUserEmailKey().then((value) => email=value!);
   return Drawer(
     child: SafeArea(
       child: Column(
         children: [
-          /* PreferredSize(
-            preferredSize: MediaQuery.of(context).size * 0.1,
-            child: AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('Settings'),
-            ),
-          ), */
           SizedBox(
             height: 20,
           ),
@@ -85,7 +79,7 @@ Widget buildDrawer(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                'dark mode',
+                'Dark mode',
                 style: TextStyle(fontSize: 20),
               ),
               ChangeThemeWidget()
